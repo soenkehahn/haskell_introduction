@@ -6,27 +6,41 @@ Sönke Hahn, Zalora
 
 ---
 
-# Contents
+# What is Haskell?
+  - A functional language that
+    - is compiled (& interpreted),
+    - is statically typed,
+    - has algebraic data types,
+    - is pure,
+    - allows polymorphism and
+    - is lazy.
 
-`toc: todo`
+todo: update
 
 ---
 
-# What is Haskell?
-  - A functional language that is
-    - compiled (& interpreted),
-    - statically typed,
-    - pure,
-    - allows polymorphism and
-    - is lazy.
+# Haskell is Different
+
+There are lots of design patterns from object-oriented or imperative languages
+that cannot be applied nicely in Haskell.
+
+The reverse is also true: There are lots of things that you can easily do in
+Haskell that you couldn't (or shouldn't) do in most other languages.
+
+Haskell is designed to be more robust and safe.
+
+???
+
+This requires a profound change in thinking.
 
 ---
 
 # How to Run Programs?
-  - `ghc`
-  - `runhaskell`
-  - hackage
-  - `cabal`
+  - `ghc`: compiler
+  - `runhaskell`: interpreter
+  - `ghci`: repl
+  - `hackage.haskell.org`: package database
+  - `cabal`: package manager
 
 ???
 
@@ -58,6 +72,51 @@ main :: IO ()
 
 ---
 
+# Algebraic Data Types
+
+The combination of
+
+- product types and
+- sum types
+- function types
+
+allows to model most domains nicely:
+
+- dogs and cats,
+- enumerations,
+- error conditions,
+- etc.
+
+???
+
+Corresponds roughly to structs and unions.
+
+```
+data Animal
+  = Dog String
+  | Cat String
+```
+
+```
+data DayOfWeek
+  = Monday
+  | Tuesday
+  | Wednesday
+```
+
+```
+data ParseResult
+  = Success Animal
+  | ParseError String
+
+parseAnimal :: String -> ParseResult
+parseAnimal = _
+```
+
+Relation between types and functions is much more flexible as in OOP.
+
+---
+
 # Types
 
 Types are Haskell's version of describing interfaces. They help to design software
@@ -71,7 +130,8 @@ low-level: `ghci > :type "huhu"`
 
 mid-level: `ghci > :type sort`
 
-high-level: `hoogle todo`
+high-level:
+  http://hackage.haskell.org/package/RSA-2.1.0.1/docs/Codec-Crypto-RSA-Exceptions.html#g:6
 
 ``` haskell
 import Data.List
@@ -94,11 +154,7 @@ reverseWords = _
     - object variables
   - A function is nothing more than a mapping from inputs to outputs.
   - Usually, datastructures are immutable.
-
-This means there are lots of design patterns from object-oriented or imperative languages
-that cannot be applied nicely in Haskell.
-
-The reverse is also true: There are lots of things that you can easily do in Haskell that you shouldn't do in most other languages.
+  - Purity plays very well with parallel programming.
 
 ???
 
@@ -185,14 +241,49 @@ Lazy languages evaluate expressions when needed.
 
 ---
 
+
+# No Loops but Recursion
+
+Haskell does not have built-in loops. Everything boils down to recursion.
+
+???
+
+`map succ [1, 2, 3]`
+
+`sum [1, 2, 3]`
+
+```
+sum_ [] = 0
+sum_ (a : r) = a + sum r
+```
+
+```
+sum_ list = foldl' (+) 0 list
+```
+
+---
+
 # Lots of "Language Features" Implemented in Libraries
 
 The combination of Haskell features (laziness, custom infix operators, higher
 order functions, purity, etc.) make it very suitable for implementing
+- control flow constructs,
 - EDSLs
+
+???
+
+`when`
+
+`with`-pattern (todo: example)
+
+diagrams
 
 ---
 
-# EDSLs
-  - `when`
-  - diagrams example
+# Conclusion
+
+Haskell
+
+- differs heavily from imperative languages,
+- is designed to be safe and
+- makes you think much more in types.
