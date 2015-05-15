@@ -8,14 +8,19 @@ Sönke Hahn, Zalora
 
 # What is Haskell?
   - A functional language that
+    - is very different from most imperative languages,
     - is compiled (& interpreted),
     - is statically typed,
     - has algebraic data types,
+    - uses types as an important tool to think about code,
     - is pure,
+    - has higher-order functions,
     - allows polymorphism and
     - is lazy.
 
-todo: update
+???
+
+Don't be confused, this is more an overview of what's to come in this talk.
 
 ---
 
@@ -27,7 +32,7 @@ that cannot be applied nicely in Haskell.
 The reverse is also true: There are lots of things that you can easily do in
 Haskell that you couldn't (or shouldn't) do in most other languages.
 
-Haskell is designed to be more robust and safe.
+Haskell is designed to be robust and safe.
 
 ???
 
@@ -52,7 +57,6 @@ main = putStrLn "Hello, World!"
 ---
 
 # Static Checks
-  - imports resolution
   - parsing
   - name resolution
   - type checks
@@ -61,12 +65,20 @@ main = putStrLn "Hello, World!"
 
 Example:
 ``` haskell
+main = putStrLn ("Hello, World!"
+
+main = putStrLn (sort "Hello, World!")
+
 import Data.List
 
 main = putStrLn (sort "Hello, World!")
-main = putStrLn (sort "Hello, World!"
+
+-- great way of catching typos
+
 main = putStrLn (zort "Hello, World!")
+
 main = putStrLn (sort True)
+
 main :: IO ()
 ```
 
@@ -78,7 +90,6 @@ The combination of
 
 - product types and
 - sum types
-- function types
 
 allows to model most domains nicely:
 
@@ -143,6 +154,8 @@ reverseWords :: String -> String
 reverseWords = _
 ```
 
+When you program in Haskell you think a lot about types.
+
 ---
 
 # Purity
@@ -157,6 +170,11 @@ reverseWords = _
   - Purity plays very well with parallel programming.
 
 ???
+
+``` haskell
+x :: Int
+x = 5
+```
 
 ``` haskell
 import Data.List
@@ -272,9 +290,12 @@ order functions, purity, etc.) make it very suitable for implementing
 
 ???
 
-`when`
+`with`-pattern
 
-`with`-pattern (todo: example)
+``` haskell
+main = withSystemTempDirectory "foo" $ \ tempDir -> do
+  writeFile (tempDir </> "bla") "file contents"
+```
 
 diagrams
 
